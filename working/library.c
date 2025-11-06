@@ -141,9 +141,9 @@ Data obter_data_atual_simulada() {
     printf("\n[SIMULACAO] Digite a data de HOJE (dd mm aaaa): ");
     while (scanf("%d %d %d", &hoje.dia, &hoje.mes, &hoje.ano) != 3 || !validar_data(hoje.dia, hoje.mes, hoje.ano)) {
         printf("Data invalida. Tente novamente (dd mm aaaa): ");
-        while (getchar() != '\n'); // Limpa o buffer de entrada
+        // Nenhuma limpeza de buffer
     }
-    while (getchar() != '\n');
+    // Nenhuma limpeza de buffer
     return hoje;
 }
 
@@ -175,7 +175,7 @@ void salvar_dados() {
             livros[i].emprestados,
             livros[i].vezes_emprestado);
     }
-    
+
     // 2. Salvar Usuários
     for (int i = 0; i < cont_usuarios; i++) {
         fprintf(f_usuarios, "%d;%s;%s;%s;%d-%d-%d\n",
@@ -217,7 +217,7 @@ void carregar_dados() {
     FILE *f_livros = fopen("livros.txt", "r");
     FILE *f_usuarios = fopen("usuarios.txt", "r");
     FILE *f_emprestimos = fopen("emprestimos.txt", "r");
-    
+
     int max_cod_livro = 0;
     int max_matricula = 0;
     int max_cod_emprestimo = 0;
@@ -277,7 +277,7 @@ void carregar_dados() {
         fclose(f_emprestimos);
         printf("[Sistema] %d emprestimos carregados.\n", cont_emprestimos);
     }
-    
+
     // Atualiza os próximos códigos/matrículas
     proximo_cod_livro = max_cod_livro + 1;
     proxima_matricula = max_matricula + 1;
@@ -330,14 +330,14 @@ void cadastrar_livro() {
     }
 
     Livro novo_livro;
-    
+
     novo_livro.codigo = proximo_cod_livro++;
     printf("\n--- CADASTRO DE LIVRO ---\n");
     printf("Codigo do livro (Automatico): %d\n", novo_livro.codigo);
 
     // Título
     printf("Titulo (max 100 caracteres): ");
-    while (getchar() != '\n'); // Limpa o buffer
+    // O usuário deve garantir que o buffer esteja limpo antes de chamar fgets
     fgets(novo_livro.titulo, 101, stdin);
     novo_livro.titulo[strcspn(novo_livro.titulo, "\n")] = 0; // Remove newline
 
@@ -355,16 +355,16 @@ void cadastrar_livro() {
     printf("Ano de publicacao (yyyy): ");
     while (scanf("%d", &novo_livro.ano_publicacao) != 1 || novo_livro.ano_publicacao < 1500 || novo_livro.ano_publicacao > 2050) {
         printf("Ano invalido. Digite um ano entre 1500 e 2050: ");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
     }
 
     // Número de Exemplares (Validação de entrada)
     printf("Numero de exemplares disponiveis: ");
     while (scanf("%d", &novo_livro.exemplares) != 1 || novo_livro.exemplares <= 0) {
         printf("Numero de exemplares invalido. Digite um valor positivo: ");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
     }
-    while (getchar() != '\n'); // Limpa o buffer
+    // Nenhuma limpeza de buffer
 
     // Inicializa campos de controle
     novo_livro.emprestados = 0;
@@ -392,7 +392,7 @@ void cadastrar_usuario() {
 
     // Nome Completo
     printf("Nome completo (max 100 caracteres): ");
-    while (getchar() != '\n'); // Limpa o buffer
+    // O usuário deve garantir que o buffer esteja limpo antes de chamar fgets
     fgets(novo_usuario.nome, 101, stdin);
     novo_usuario.nome[strcspn(novo_usuario.nome, "\n")] = 0;
 
@@ -411,9 +411,9 @@ void cadastrar_usuario() {
     while (scanf("%d %d %d", &novo_usuario.data_cadastro.dia, &novo_usuario.data_cadastro.mes, &novo_usuario.data_cadastro.ano) != 3 ||
            !validar_data(novo_usuario.data_cadastro.dia, novo_usuario.data_cadastro.mes, novo_usuario.data_cadastro.ano)) {
         printf("Data invalida. Tente novamente (dd mm aaaa): ");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
     }
-    while (getchar() != '\n'); // Limpa o buffer
+    // Nenhuma limpeza de buffer
 
     usuarios[cont_usuarios++] = novo_usuario;
     printf("\nUsuario '%s' cadastrado com sucesso! Matricula: %d\n", novo_usuario.nome, novo_usuario.matricula);
@@ -440,9 +440,9 @@ void realizar_emprestimo() {
     printf("Digite a matricula do usuario: ");
     while (scanf("%d", &mat) != 1) {
         printf("Entrada invalida. Digite a matricula do usuario: ");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
     }
-    while (getchar() != '\n');
+    // Nenhuma limpeza de buffer
     idx_usuario = buscar_usuario_por_matricula(mat);
 
     if (idx_usuario == -1) {
@@ -454,9 +454,9 @@ void realizar_emprestimo() {
     printf("Digite o codigo do livro: ");
     while (scanf("%d", &cod_liv) != 1) {
         printf("Entrada invalida. Digite o codigo do livro: ");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
     }
-    while (getchar() != '\n');
+    // Nenhuma limpeza de buffer
     idx_livro = buscar_livro_por_codigo(cod_liv);
 
     if (idx_livro == -1) {
@@ -480,9 +480,9 @@ void realizar_emprestimo() {
     while (scanf("%d %d %d", &novo_emprestimo.data_emprestimo.dia, &novo_emprestimo.data_emprestimo.mes, &novo_emprestimo.data_emprestimo.ano) != 3 ||
            !validar_data(novo_emprestimo.data_emprestimo.dia, novo_emprestimo.data_emprestimo.mes, novo_emprestimo.data_emprestimo.ano)) {
         printf("Data invalida. Tente novamente (dd mm aaaa): ");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
     }
-    while (getchar() != '\n');
+    // Nenhuma limpeza de buffer
 
     // Data Prevista de Devolução (7 dias após empréstimo)
     novo_emprestimo.data_devolucao_prevista = calcular_data_devolucao(novo_emprestimo.data_emprestimo);
@@ -501,7 +501,7 @@ void realizar_emprestimo() {
            novo_emprestimo.data_devolucao_prevista.dia,
            novo_emprestimo.data_devolucao_prevista.mes,
            novo_emprestimo.data_devolucao_prevista.ano);
-           
+
     salvar_dados();
 }
 
@@ -512,13 +512,13 @@ void realizar_devolucao() {
     int cod_emp;
     printf("\n--- DEVOLUCAO DE LIVRO ---\n");
     printf("Digite o codigo do emprestimo a ser finalizado: ");
-    
+
     if (scanf("%d", &cod_emp) != 1) {
         printf("Entrada invalida.\n");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
         return;
     }
-    while (getchar() != '\n');
+    // Nenhuma limpeza de buffer
 
     int idx_emprestimo = -1;
     for (int i = 0; i < cont_emprestimos; i++) {
@@ -556,13 +556,13 @@ void renovar_emprestimo() {
     int cod_emp;
     printf("\n--- RENOVACAO DE EMPRESTIMO ---\n");
     printf("Digite o codigo do emprestimo a ser renovado: ");
-    
+
     if (scanf("%d", &cod_emp) != 1) {
         printf("Entrada invalida.\n");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
         return;
     }
-    while (getchar() != '\n');
+    // Nenhuma limpeza de buffer
 
     int idx_emprestimo = -1;
     for (int i = 0; i < cont_emprestimos; i++) {
@@ -579,13 +579,13 @@ void renovar_emprestimo() {
 
     // Calcula a nova data de devolução (7 dias a partir da data prevista anterior)
     emprestimos[idx_emprestimo].data_devolucao_prevista = calcular_data_devolucao(emprestimos[idx_emprestimo].data_devolucao_prevista);
-    
+
     printf("\nEmprestimo %d RENOVADO com sucesso!\n", cod_emp);
     printf("Nova devolucao prevista para: %02d/%02d/%d\n",
            emprestimos[idx_emprestimo].data_devolucao_prevista.dia,
            emprestimos[idx_emprestimo].data_devolucao_prevista.mes,
            emprestimos[idx_emprestimo].data_devolucao_prevista.ano);
-           
+
     salvar_dados();
 }
 
@@ -621,14 +621,15 @@ void pesquisar_livros() {
     printf("2. Pesquisar por Titulo\n");
     printf("3. Pesquisar por Autor\n");
     printf("Escolha a opcao: ");
-    
+
     if (scanf("%d", &opcao) != 1) {
+        opcao = -1; // Para evitar que a próxima leitura de string falhe imediatamente
         printf("Opcao invalida.\n");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
         return;
     }
-    while (getchar() != '\n');
-    
+    // Nenhuma limpeza de buffer
+
     printf("--------------------------\n");
 
     switch (opcao) {
@@ -642,7 +643,7 @@ void pesquisar_livros() {
                 }
             } else {
                 printf("Entrada invalida para codigo.\n");
-                while (getchar() != '\n');
+                // Nenhuma limpeza de buffer
             }
             break;
         case 2:
@@ -671,7 +672,7 @@ void pesquisar_livros() {
             printf("Opcao de busca invalida.\n");
             return;
     }
-    
+
     if (encontrados == 0) {
         printf("Nenhum livro encontrado com o criterio fornecido.\n");
     }
@@ -701,14 +702,15 @@ void pesquisar_usuarios() {
     printf("1. Pesquisar por Matricula\n");
     printf("2. Pesquisar por Nome\n");
     printf("Escolha a opcao: ");
-    
+
     if (scanf("%d", &opcao) != 1) {
+        opcao = -1;
         printf("Opcao invalida.\n");
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
         return;
     }
-    while (getchar() != '\n');
-    
+    // Nenhuma limpeza de buffer
+
     printf("--------------------------\n");
 
     switch (opcao) {
@@ -722,7 +724,7 @@ void pesquisar_usuarios() {
                 }
             } else {
                 printf("Entrada invalida para matricula.\n");
-                while (getchar() != '\n');
+                // Nenhuma limpeza de buffer
             }
             break;
         case 2:
@@ -838,7 +840,7 @@ void relatorio_atrasos() {
             // Verifica se a data de hoje é maior que a data prevista de devolução
             if (comparar_datas(hoje, emprestimos[i].data_devolucao_prevista) > 0) {
                 encontrados++;
-                
+
                 // Busca o nome do usuário e título do livro (sem validação de erro para concisão)
                 int idx_u = buscar_usuario_por_matricula(emprestimos[i].matricula_usuario);
                 int idx_l = buscar_livro_por_codigo(emprestimos[i].codigo_livro);
@@ -869,10 +871,10 @@ void busca_avancada_livros() {
     int ano_busca, encontrados = 0;
 
     printf("\n--- BUSCA AVANCADA DE LIVROS (Titulo E Ano) ---\n");
-    
+
     // Critério 1: Título
+    // O usuário deve garantir que o buffer esteja limpo antes de chamar fgets
     printf("Digite parte do Titulo: ");
-    while (getchar() != '\n');
     fgets(titulo_busca, 101, stdin);
     titulo_busca[strcspn(titulo_busca, "\n")] = 0;
 
@@ -882,14 +884,14 @@ void busca_avancada_livros() {
         printf("Entrada invalida para ano. Ignorando criterio de ano.\n");
         ano_busca = 0;
     }
-    while (getchar() != '\n');
-    
+    // Nenhuma limpeza de buffer
+
     printf("\n--- Resultados da Busca ---\n");
-    
+
     for (int i = 0; i < cont_livros; i++) {
         int match_titulo = (strstr(livros[i].titulo, titulo_busca) != NULL);
         int match_ano = (ano_busca == 0 || livros[i].ano_publicacao == ano_busca);
-        
+
         if (match_titulo && match_ano) {
             exibir_livro(&livros[i]);
             encontrados++;
@@ -920,9 +922,9 @@ void menu_livros() {
 
         if (scanf("%d", &opcao) != 1) {
             opcao = -1; // Garante loop para entrada inválida
-            while (getchar() != '\n');
+            // Nenhuma limpeza de buffer
         }
-        while (getchar() != '\n'); // Limpa o buffer
+        // Nenhuma limpeza de buffer
 
         switch (opcao) {
             case 1: cadastrar_livro(); break;
@@ -949,9 +951,9 @@ void menu_usuarios() {
 
         if (scanf("%d", &opcao) != 1) {
             opcao = -1; // Garante loop para entrada inválida
-            while (getchar() != '\n');
+            // Nenhuma limpeza de buffer
         }
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
 
         switch (opcao) {
             case 1: cadastrar_usuario(); break;
@@ -979,9 +981,9 @@ void menu_emprestimos() {
 
         if (scanf("%d", &opcao) != 1) {
             opcao = -1; // Garante loop para entrada inválida
-            while (getchar() != '\n');
+            // Nenhuma limpeza de buffer
         }
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
 
         switch (opcao) {
             case 1: realizar_emprestimo(); break;
@@ -1017,9 +1019,9 @@ int main() {
 
         if (scanf("%d", &opcao) != 1) {
             opcao = -1; // Garante loop para entrada inválida
-            while (getchar() != '\n');
+            // Nenhuma limpeza de buffer
         }
-        while (getchar() != '\n');
+        // Nenhuma limpeza de buffer
 
         switch (opcao) {
             case 1: menu_livros(); break;
