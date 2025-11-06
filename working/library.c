@@ -27,7 +27,7 @@ typedef struct {
     int exemplares;         // Total de exemplares
     int emprestados;        // Exemplares atualmente emprestados
     int vezes_emprestado;   // Para o relatório de mais emprestados
-// O status (disponível/emprestado) é inferido a partir de 'exemplares' e 'emprestados'
+    // O status (disponível/emprestado) é inferido a partir de 'exemplares' e 'emprestados'
 } Livro;
 
 // Estrutura para representar um Usuário
