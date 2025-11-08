@@ -1,0 +1,4 @@
+4
+1;Ana Carolina Gomes;Arquitetura e Urbanismo;11987654321;8/11/2025
+2;Ricardo Alves da Silva;Engenharia de Software;21998765432;8/11/2025
+3;Patr¡cia Oliveira Souza;Psicologia Cl¡nica;31976543210;8/11/2025

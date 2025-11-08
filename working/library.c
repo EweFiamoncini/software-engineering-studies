@@ -362,13 +362,13 @@ void cadastrar_livro() {
     printf("\n--- Cadastro de Novo Livro ---\n");
     printf("Codigo do livro: %d\n", novo_livro.codigo);
 
-    printf("Titulo (max %d): ", TAM_TITULO - 1);
+    printf("Titulo (max %d): ", TAM_TITULO);
     ler_string(novo_livro.titulo, TAM_TITULO);
 
-    printf("Autor (max %d): ", TAM_AUTOR - 1);
+    printf("Autor (max %d): ", TAM_AUTOR);
     ler_string(novo_livro.autor, TAM_AUTOR);
 
-    printf("Editora (max %d): ", TAM_EDITORA - 1);
+    printf("Editora (max %d): ", TAM_EDITORA);
     ler_string(novo_livro.editora, TAM_EDITORA);
 
     // Validação de entrada: Ano de publicacao
@@ -415,13 +415,13 @@ void cadastrar_usuario() {
     printf("\n--- Cadastro de Novo Usuario ---\n");
     printf("Matricula: %d\n", novo_usuario.matricula);
 
-    printf("Nome completo (max %d): ", TAM_NOME - 1);
+    printf("Nome completo (max %d): ", TAM_NOME);
     ler_string(novo_usuario.nome, TAM_NOME);
 
-    printf("Curso (max %d): ", TAM_CURSO - 1);
+    printf("Curso (max %d): ", TAM_CURSO);
     ler_string(novo_usuario.curso, TAM_CURSO);
 
-    printf("Telefone (max %d): ", TAM_TELEFONE - 1);
+    printf("Telefone (max %d): ", TAM_TELEFONE);
     ler_string(novo_usuario.telefone, TAM_TELEFONE);
 
     lista_usuarios[total_usuarios++] = novo_usuario;
